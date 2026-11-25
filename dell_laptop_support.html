@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dell Support - Dell Laptops 2025</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        /* Top Navbar */
+        .top-nav {
+            background-color: #1c191d;
+            color: #ffffff;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .logo-icon {
+            width: 22px;
+            height: 22px;
+            background: radial-gradient(circle at 30% 30%, #ff5722, #d32f2f);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: inline-block;
+        }
+        .login-btn {
+            background-color: #d9231a;
+            color: #ffffff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Hero Search Section */
+        .hero-section {
+            background-color: #3d2444;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .search-pill {
+            display: flex;
+            background: #ffffff;
+            border-radius: 30px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 340px;
+            height: 44px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .search-input-side {
+            width: 35%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 13px;
+            border: none;
+            outline: none;
+            text-align: center;
+        }
+        .search-btn-side {
+            width: 65%;
+            background: linear-gradient(90deg, #ff5e62 0%, #8e2de2 100%);
+            color: #ffffff;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Banner Strip */
+        .series-banner {
+            margin: 25px 16px;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .mini-screen {
+            width: 65px;
+            height: 40px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            border: 3px solid #1e293b;
+            border-bottom-width: 5px;
+            border-radius: 3px 3px 0 0;
+            position: relative;
+        }
+        .mini-screen::after {
+            content: "";
+            position: absolute;
+            bottom: -7px;
+            left: -6px;
+            width: 71px;
+            height: 3px;
+            background: #94a3b8;
+            border-radius: 2px;
+        }
+        .series-title {
+            color: #d81b60;
+            font-weight: 700;
+            font-size: 16px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* Intro Paragraph */
+        .intro-text {
+            padding: 10px 20px 30px;
+            text-align: center;
+            font-size: 15px;
+            color: #374151;
+        }
+
+        /* Gray Section Header */
+        .gray-band {
+            background-color: #efefef;
+            padding: 24px 16px;
+            text-align: center;
+        }
+        .gray-band h2 {
+            color: #3b234a;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Product Showcase */
+        .product-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .product-name {
+            color: #3b234a;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .laptop-graphic {
+            max-width: 300px;
+            margin: 0 auto 30px;
+        }
+        .laptop-frame {
+            width: 260px;
+            height: 155px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00d2ff 100%);
+            border: 8px solid #1e293b;
+            border-bottom-width: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.18), inset 0 0 0 1px #cbd5e1;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+        }
+        .laptop-frame::after {
+            content: "DELL";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 7px;
+            color: #cbd5e1;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .laptop-base {
+            width: 296px;
+            height: 10px;
+            background: linear-gradient(180deg, #e2e8f0 0%, #94a3b8 100%);
+            border-radius: 2px 2px 8px 8px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .laptop-base::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 44px;
+            height: 3px;
+            background: #64748b;
+            border-radius: 0 0 3px 3px;
+        }
+
+        /* Specs Details */
+        .details-block {
+            text-align: left;
+            margin-bottom: 28px;
+            padding: 0 10px;
+        }
+        .details-block h3 {
+            color: #3b234a;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .details-block ul {
+            list-style-type: disc;
+            padding-left: 22px;
+            color: #333333;
+            font-size: 14.5px;
+        }
+        .details-block li {
+            margin-bottom: 8px;
+        }
+        .year-highlight {
+            font-weight: bold;
+            color: #111827;
+        }
+
+        /* Articles & Videos Section */
+        .links-section {
+            padding: 25px 20px;
+            text-align: center;
+        }
+        .links-section h3 {
+            color: #3b234a;
+            font-size: 19px;
+            margin-bottom: 18px;
+            margin-top: 15px;
+        }
+        .orange-link {
+            display: block;
+            color: #d9531e;
+            text-decoration: none;
+            font-size: 14.5px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .orange-link:hover {
+            text-decoration: underline;
+        }
+
+        .more-btn {
+            display: inline-block;
+            margin: 20px auto 10px;
+            padding: 12px 32px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #ff5e62 0%, #8e2de2 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(142, 45, 226, 0.25);
+        }
+
+        /* Docs Section */
+        .docs-section {
+            padding: 25px 20px 50px;
+            text-align: center;
+        }
+        .docs-section h4 {
+            color: #3b234a;
+            font-size: 18px;
+            margin-bottom: 14px;
+        }
+        .sub-title-underline {
+            color: #3b234a;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav">
+        <div class="logo-area">
+            <span class="logo-icon"></span>
+            <span>Dell Laptop Support</span>
+        </div>
+        <button class="login-btn">Sign In</button>
+    </header>
+
+    <section class="hero-section">
+        <div class="search-pill">
+            <input type="text" class="search-input-side" placeholder="Laptops" readonly>
+            <button class="search-btn-side">Search</button>
+        </div>
+    </section>
+
+    <div class="series-banner">
+        <div class="mini-screen"></div>
+        <div class="series-title">Dell Latitude &amp; Precision series</div>
+    </div>
+
+    <p class="intro-text">
+        The Dell Professional Laptop series comes in the 2025 edition. Each device is equipped with high-performance processors, smart thermal cooling, a durable chassis, and a crisp anti-glare display built for business, engineering, and productivity workflows.
+    </p>
+
+    <div class="gray-band">
+        <h2>Quick Overview - Identify Your<br>Dell Laptop Series</h2>
+    </div>
+
+    <section class="product-section">
+        <div class="product-name">Dell Latitude / Precision</div>
+
+        <div class="laptop-graphic">
+            <div class="laptop-frame"></div>
+            <div class="laptop-base"></div>
+        </div>
+
+        <div class="details-block">
+            <h3>Chassis &amp; Hardware Interface</h3>
+            <ul>
+                <li>Sleek aluminum-magnesium chassis with reinforced hinges and backlit keyboard.</li>
+                <li>Anti-glare FHD / QHD display with ultra-thin bezels and wide viewing angles.</li>
+                <li>Full connectivity ports including Thunderbolt / USB-C, HDMI, USB 3.2, RJ-45 Ethernet, and audio jack.</li>
+            </ul>
+        </div>
+
+        <div class="details-block">
+            <h3>Model Number &amp; Serial Number (Service Tag)</h3>
+            <ul>
+                <li>Identification label located on the bottom cover or inside BIOS setup.</li>
+                <li>Supported Series: Latitude 5000 / 7000 / Precision / XPS.</li>
+                <li>Service Tag: 7H9K... / 9M2X... / 4B8P...</li>
+                <li><span class="year-highlight">Manufacture Date: 2025</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="links-section">
+        <h3>Articles</h3>
+        <a href="#" class="orange-link">How to update system drivers using Dell SupportAssist</a>
+        <a href="#" class="orange-link">How to reset BIOS and system settings to factory defaults</a>
+        <a href="#" class="orange-link">Battery health optimization and ExpressCharge settings</a>
+        <a href="#" class="orange-link">Troubleshooting audio or display driver issues</a>
+        <a href="#" class="orange-link">Configuring USB-C and Thunderbolt ports for external monitors</a>
+        <a href="#" class="orange-link">Running Dell ePSA pre-boot hardware diagnostics</a>
+
+        <h3>Videos</h3>
+        <a href="#" class="orange-link">Getting started with your Dell Professional Laptop</a>
+        <a href="#" class="orange-link">How to locate your Service Tag and Express Service Code</a>
+        <a href="#" class="orange-link">Tips for maintaining optimal cooling and CPU performance</a>
+
+        <a href="#" class="more-btn">More Articles and Videos</a>
+    </section>
+
+    <div class="gray-band">
+        <h2>Documents and Software</h2>
+    </div>
+
+    <section class="docs-section">
+        <h4>User Guides</h4>
+        <div class="sub-title-underline">Dell Laptops:</div>
+        <a href="#" class="orange-link">Quick Setup Guide</a>
+        <a href="#" class="orange-link">User &amp; Service Manual</a>
+        <a href="#" class="orange-link">Safety &amp; Regulatory Guide</a>
+    </section>
+
+</body>
+</html>

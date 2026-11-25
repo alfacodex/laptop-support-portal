@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الدعم الفني للأجهزة</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Tahoma', 'Arial', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.3s ease-out forwards;
+        }
+        .card-hover {
+            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen transition-colors duration-200 antialiased">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/85 dark:bg-slate-900/85 border-b border-slate-200/80 dark:border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-sm shadow-blue-600/25 shrink-0">
+                    <i data-lucide="life-buoy" class="w-5 h-5"></i>
+                </div>
+                <div class="min-w-0">
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">بوابة الدعم الفني للأجهزة</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">مركز الوصول السريع لأدلة الصيانة والدعم</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 shrink-0">
+                <button id="openTroubleshooterBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 dark:bg-blue-950/60 dark:text-blue-300 dark:hover:bg-blue-900/60 transition-colors">
+                    <i data-lucide="stethoscope" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">مساعد الفحص السريع</span>
+                    <span class="sm:hidden">فحص</span>
+                </button>
+                <button id="themeToggleBtn" type="button" aria-label="تبديل المظهر" class="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+                    <i id="themeIconSun" data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+                    <i id="themeIconMoon" data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6">
+
+        <!-- Hero & Quick Search Section -->
+        <section class="relative overflow-hidden rounded-2xl bg-gradient-to-bl from-slate-900 via-blue-950 to-indigo-950 text-white p-6 sm:p-8 shadow-lg">
+            <div class="absolute -left-16 -top-16 w-56 h-56 rounded-full bg-blue-500/15 blur-2xl pointer-events-none"></div>
+            <div class="absolute -right-12 -bottom-16 w-48 h-48 rounded-full bg-indigo-500/15 blur-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div class="space-y-2 max-w-xl">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-white/10 text-blue-200 border border-white/10">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        6 بوابات دعم جاهزة
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">اختر نوع الجهاز للدعم الفني</h2>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                        ابحث باسم الشركة المصنّعة أو فئة الجهاز أو سنة الإصدار، أو ثبّت البوابات الأكثر استخداماً للوصول الفوري.
+                    </p>
+                </div>
+
+                <!-- Search Input -->
+                <div class="w-full lg:w-96 shrink-0">
+                    <label for="searchInput" class="sr-only">ابحث عن جهاز</label>
+                    <div class="relative">
+                        <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                        <input
+                            id="searchInput"
+                            type="text"
+                            placeholder="ابحث مثل: HP، Dell، Lenovo، 2026..."
+                            class="w-full pr-11 pl-16 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-300/80 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/15 transition-all"
+                        >
+                        <button id="clearSearchBtn" type="button" class="hidden absolute left-10 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white p-1" aria-label="مسح البحث">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                        <kbd class="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[11px] font-mono text-slate-300 bg-white/10 border border-white/15 rounded absolute left-3 top-1/2 -translate-y-1/2">/</kbd>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Row -->
+        <section class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="layers" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <div id="statTotal" class="text-xl font-bold text-slate-900 dark:text-white">6</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">إجمالي البوابات</div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="laptop" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <div id="statLaptops" class="text-xl font-bold text-slate-900 dark:text-white">5</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">أجهزة لابتوب</div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-violet-50 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="monitor" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <div id="statDesktops" class="text-xl font-bold text-slate-900 dark:text-white">1</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">أجهزة مكتبية</div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                    <i data-lucide="star" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <div id="statPinned" class="text-xl font-bold text-slate-900 dark:text-white">0</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">المثبتة بالمفضلة</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters & Controls Toolbar -->
+        <section class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <!-- Brand Filter Pills -->
+                <div class="flex flex-wrap items-center gap-2" role="group" aria-label="تصفية حسب العلامة التجارية">
+                    <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 ml-1">العلامة التجارية:</span>
+                    <button type="button" data-brand="all" class="brand-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-blue-600 text-white">الكل</button>
+                    <button type="button" data-brand="HP" class="brand-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">HP</button>
+                    <button type="button" data-brand="Dell" class="brand-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Dell</button>
+                    <button type="button" data-brand="Lenovo" class="brand-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">Lenovo</button>
+                </div>
+
+                <!-- Right Controls: Type, Sort, View Mode -->
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <select id="typeFilter" aria-label="تصفية حسب نوع الجهاز" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="all">كل الأنواع</option>
+                        <option value="laptop">لابتوب فقط</option>
+                        <option value="desktop">كمبيوتر مكتبي فقط</option>
+                    </select>
+
+                    <select id="sortSelect" aria-label="ترتيب النتائج" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="pinned">المثبتة ثم الأحدث</option>
+                        <option value="newest">الأحدث إصداراً</option>
+                        <option value="oldest">الأقدم إصداراً</option>
+                        <option value="name">الاسم (A-Z)</option>
+                    </select>
+
+                    <button id="pinnedOnlyBtn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                        <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                        <span>المفضلة فقط</span>
+                    </button>
+
+                    <div class="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+                        <button id="viewGridBtn" type="button" aria-label="عرض شبكي" class="p-1.5 bg-blue-600 text-white transition-colors">
+                            <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                        </button>
+                        <button id="viewListBtn" type="button" aria-label="عرض قائمة" class="p-1.5 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                            <i data-lucide="list" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Results Count -->
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+                <span id="resultsCount">عرض 6 من 6 بوابات</span>
+                <button id="resetFiltersBtn" type="button" class="hidden text-blue-600 dark:text-blue-400 hover:underline font-medium">إعادة تعيين الفلاتر</button>
+            </div>
+        </section>
+
+        <!-- Portals Grid / List -->
+        <section id="portalsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></section>
+
+        <!-- Empty State -->
+        <section id="emptyState" class="hidden bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-10 text-center space-y-3">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center">
+                <i data-lucide="search-x" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">لا توجد أجهزة مطابقة لبحثك</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto">جرب تغيير كلمات البحث أو إزالة الفلاتر لعرض جميع بوابات الدعم المتاحة.</p>
+            <button id="emptyResetBtn" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors">
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                عرض جميع البوابات
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl mx-auto px-4 sm:px-6 py-6 text-center text-xs text-slate-400 dark:text-slate-500">
+        بوابة الدعم الفني للأجهزة &bull; وصول سريع ومباشر لصفحات الدعم المحلية
+    </footer>
+
+    <!-- Quick Troubleshooter Modal -->
+    <div id="troubleshooterModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-up">
+            <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                        <i data-lucide="stethoscope" class="w-4 h-4"></i>
+                    </div>
+                    <h3 id="modalTitle" class="text-base font-bold text-slate-900 dark:text-white">مساعد الفحص السريع قبل فتح التذكرة</h3>
+                </div>
+                <button id="closeModalBtn" type="button" aria-label="إغلاق" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-4 max-h-[75vh] overflow-y-auto">
+                <div>
+                    <label for="diagSymptom" class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1.5">اختر العطل أو المشكلة الشائعة:</label>
+                    <select id="diagSymptom" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="power">الجهاز لا يعمل أو لا يشحن</option>
+                        <option value="display">الشاشة سوداء أو بها وميض</option>
+                        <option value="slow">بطء شديد أو ارتفاع درجة الحرارة</option>
+                        <option value="network">مشكلة في الواي فاي أو الشبكة</option>
+                        <option value="bios">تحديث BIOS أو تعريفات النظام</option>
+                    </select>
+                </div>
+                <div id="diagStepsBox" class="rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 p-4 space-y-2.5 text-sm"></div>
+                <div class="flex items-center justify-between pt-2">
+                    <span class="text-xs text-slate-500 dark:text-slate-400">بعد التحقق، افتح بوابة جهازك المناسبة من القائمة الرئيسية.</span>
+                    <button id="modalDoneBtn" type="button" class="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-colors">تم</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-5 left-5 z-50 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-800 text-white text-xs font-medium shadow-lg border border-slate-700 flex items-center gap-2">
+        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+        <span id="toastText"></span>
+    </div>
+
+    <script>
+        const DEVICES = [
+            {
+                id: 'hp-2026-1',
+                title: 'HP Laptop Support (2026 - 1)',
+                arLabel: 'دعم لابتوب HP — إصدار 2026 (1)',
+                brand: 'HP',
+                type: 'laptop',
+                typeLabel: 'لابتوب',
+                year: 2026,
+                href: 'HP_Laptop_Support_2026-1.html',
+                badge: 'أحدث إصدار',
+                accent: 'blue',
+                description: 'دليل الدعم الفني والتعريفات المحدّث لأجهزة HP المحمولة (النسخة الأولى 2026).'
+            },
+            {
+                id: 'hp-2026',
+                title: 'HP Laptop Support (2026)',
+                arLabel: 'دعم لابتوب HP — إصدار 2026',
+                brand: 'HP',
+                type: 'laptop',
+                typeLabel: 'لابتوب',
+                year: 2026,
+                href: 'HP_Laptop_Support_2026.html',
+                badge: '2026',
+                accent: 'blue',
+                description: 'بوابة الدعم الفني الشاملة لأجهزة HP المحمولة لموديلات 2026.'
+            },
+            {
+                id: 'hp-2023',
+                title: 'HP Laptop Support (2023)',
+                arLabel: 'دعم لابتوب HP — إصدار 2023',
+                brand: 'HP',
+                type: 'laptop',
+                typeLabel: 'لابتوب',
+                year: 2023,
+                href: 'HP_Laptop_Support_2023.html',
+                badge: '2023',
+                accent: 'sky',
+                description: 'إصلاح الأعطال وتحديثات الصيانة لأجهزة HP المحمولة (2023).'
+            },
+            {
+                id: 'dell-laptop',
+                title: 'Dell Laptop Support',
+                arLabel: 'دعم لابتوب Dell',
+                brand: 'Dell',
+                type: 'laptop',
+                typeLabel: 'لابتوب',
+                year: 2024,
+                href: 'dell_laptop_support.html',
+                badge: 'لابتوب',
+                accent: 'indigo',
+                description: 'بوابة الدعم الفني والتشخيص لأجهزة Dell المحمولة بمختلف فئاتها.'
+            },
+            {
+                id: 'dell-desktop-2023',
+                title: 'Dell Desktop Support (2023)',
+                arLabel: 'دعم كمبيوتر مكتبي Dell — 2023',
+                brand: 'Dell',
+                type: 'desktop',
+                typeLabel: 'كمبيوتر مكتبي',
+                year: 2023,
+                href: 'Dell_Desktop_Support_2023_Updated.html',
+                badge: 'محدّث 2023',
+                accent: 'violet',
+                description: 'النسخة المحدثة لدعم أجهزة Dell المكتبية وفحص المكونات الداخلية.'
+            },
+            {
+                id: 'lenovo-2023',
+                title: 'Lenovo Laptop Support (2023)',
+                arLabel: 'دعم لابتوب Lenovo — إصدار 2023',
+                brand: 'Lenovo',
+                type: 'laptop',
+                typeLabel: 'لابتوب',
+                year: 2023,
+                href: 'Lenovo_Laptop_Support_2023.html',
+                badge: '2023',
+                accent: 'rose',
+                description: 'دليل الدعم الفني والتعريفات لأجهزة Lenovo المحمولة (2023).'
+            }
+        ];
+
+        const DIAGNOSTICS = {
+            power: {
+                title: 'خطوات فحص الطاقة والشحن:',
+                steps: [
+                    'تأكد من توصيل الشاحن مباشرة بمقبس الحائط وليس بمشترك كهربائي.',
+                    'افحص مؤشر LED بجانب منفذ الشحن أو على محول الطاقة.',
+                    'قم بإجراء تفريغ شحنة (Hard Reset): افصل الشاحن واضغط على زر التشغيل لمدة 15 ثانية.'
+                ]
+            },
+            display: {
+                title: 'خطوات فحص الشاشة والعرض:',
+                steps: [
+                    'اضغط على Win + Ctrl + Shift + B لإعادة تشغيل تعريف كارت الشاشة.',
+                    'وصّل الجهاز بشاشة خارجية للتأكد مما إذا كانت المشكلة في الشاشة أم اللوحة الأم.',
+                    'تأكد من مستوى سطوع الشاشة عبر مفاتيح الاختصار (Fn).'
+                ]
+            },
+            slow: {
+                title: 'خطوات معالجة البطء والحرارة:',
+                steps: [
+                    'افتح مدير المهام (Ctrl + Shift + Esc) وتحقق من استهلاك المعالج والذاكرة.',
+                    'تأكد من عدم انسداد فتحات التهوية ووضع الجهاز على سطح صلب ومستوٍ.',
+                    'تأكد من توفر مساحة فارغة لا تقل عن 15% في قرص النظام.'
+                ]
+            },
+            network: {
+                title: 'خطوات فحص الشبكة والواي فاي:',
+                steps: [
+                    'تأكد من إيقاف وضع الطيران (Airplane Mode) وتشغيل مفتاح الواي فاي.',
+                    'أعد تشغيل الراوتر أو جرّب الاتصال بشبكة أخرى (مثل نقطة اتصال الهاتف).',
+                    'استخدم أداة تشخيص الشبكة المدمجة أو أعد تثبيت تعريف كارت الشبكة من بوابة جهازك.'
+                ]
+            },
+            bios: {
+                title: 'إرشادات تحديث BIOS والتعريفات:',
+                steps: [
+                    'تأكد من توصيل الشاحن وأن نسبة البطارية أعلى من 50% قبل بدء أي تحديث.',
+                    'لا تقم بإطفاء الجهاز أو فصل الطاقة نهائياً أثناء تحديث BIOS.',
+                    'افتح بوابة الدعم الخاصة بجهازك لتحميل الحزمة الرسمية المطابقة للموديل.'
+                ]
+            }
+        };
+
+        const BRAND_COLORS = {
+            HP: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800/70',
+            Dell: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800/70',
+            Lenovo: 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-800/70'
+        };
+
+        const state = {
+            search: '',
+            brand: 'all',
+            type: 'all',
+            sort: 'pinned',
+            pinnedOnly: false,
+            view: 'grid',
+            pinnedIds: [],
+            recentMap: {},
+            darkMode: false
+        };
+
+        function loadStorage() {
+            try {
+                const pinned = JSON.parse(localStorage.getItem('support_pinned') || '[]');
+                if (Array.isArray(pinned)) state.pinnedIds = pinned;
+                const recent = JSON.parse(localStorage.getItem('support_recent') || '{}');
+                if (recent && typeof recent === 'object') state.recentMap = recent;
+                const theme = localStorage.getItem('support_theme');
+                if (theme === 'dark') state.darkMode = true;
+            } catch (e) {}
+        }
+
+        function saveStorage() {
+            try {
+                localStorage.setItem('support_pinned', JSON.stringify(state.pinnedIds));
+                localStorage.setItem('support_recent', JSON.stringify(state.recentMap));
+                localStorage.setItem('support_theme', state.darkMode ? 'dark' : 'light');
+            } catch (e) {}
+        }
+
+        function applyTheme() {
+            document.documentElement.classList.toggle('dark', state.darkMode);
+        }
+
+        let toastTimer = null;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = msg;
+            toast.classList.remove('hidden');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.add('hidden'), 2400);
+        }
+
+        function togglePin(id) {
+            const idx = state.pinnedIds.indexOf(id);
+            if (idx >= 0) {
+                state.pinnedIds.splice(idx, 1);
+                showToast('تمت الإزالة من المفضلة');
+            } else {
+                state.pinnedIds.push(id);
+                showToast('تم التثبيت في المفضلة');
+            }
+            saveStorage();
+            render();
+        }
+
+        function recordVisit(id) {
+            state.recentMap[id] = Date.now();
+            saveStorage();
+        }
+
+        function copyLink(href, title) {
+            const url = new URL(href, window.location.href).href;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('تم نسخ رابط: ' + title);
+                }).catch(() => fallbackCopy(url, title));
+            } else {
+                fallbackCopy(url, title);
+            }
+        }
+
+        function fallbackCopy(text, title) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast('تم نسخ رابط: ' + title);
+            } catch (e) {
+                showToast('تعذر النسخ التلقائي');
+            }
+            document.body.removeChild(ta);
+        }
+
+        function getFilteredDevices() {
+            const q = state.search.trim().toLowerCase();
+            let list = DEVICES.filter(d => {
+                if (state.brand !== 'all' && d.brand !== state.brand) return false;
+                if (state.type !== 'all' && d.type !== state.type) return false;
+                if (state.pinnedOnly && !state.pinnedIds.includes(d.id)) return false;
+                if (q) {
+                    const hay = (d.title + ' ' + d.arLabel + ' ' + d.brand + ' ' + d.typeLabel + ' ' + d.year + ' ' + d.description).toLowerCase();
+                    if (!hay.includes(q)) return false;
+                }
+                return true;
+            });
+
+            list.sort((a, b) => {
+                if (state.sort === 'pinned') {
+                    const ap = state.pinnedIds.includes(a.id) ? 1 : 0;
+                    const bp = state.pinnedIds.includes(b.id) ? 1 : 0;
+                    if (ap !== bp) return bp - ap;
+                    return b.year - a.year;
+                }
+                if (state.sort === 'newest') return b.year - a.year;
+                if (state.sort === 'oldest') return a.year - b.year;
+                if (state.sort === 'name') return a.title.localeCompare(b.title);
+                return 0;
+            });
+            return list;
+        }
+
+        function render() {
+            const container = document.getElementById('portalsContainer');
+            const emptyState = document.getElementById('emptyState');
+            const resultsCount = document.getElementById('resultsCount');
+            const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+            const clearSearchBtn = document.getElementById('clearSearchBtn');
+            const statPinned = document.getElementById('statPinned');
+
+            statPinned.textContent = String(state.pinnedIds.length);
+            clearSearchBtn.classList.toggle('hidden', state.search.length === 0);
+
+            const hasActiveFilter = state.search.trim() !== '' || state.brand !== 'all' || state.type !== 'all' || state.pinnedOnly;
+            resetFiltersBtn.classList.toggle('hidden', !hasActiveFilter);
+
+            const filtered = getFilteredDevices();
+            resultsCount.textContent = `عرض ${filtered.length} من ${DEVICES.length} بوابات`;
+
+            if (state.view === 'grid') {
+                container.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4';
+            } else {
+                container.className = 'flex flex-col gap-3';
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                container.innerHTML = filtered.map((d, idx) => {
+                    const isPinned = state.pinnedIds.includes(d.id);
+                    const wasVisited = Boolean(state.recentMap[d.id]);
+                    const brandBadgeClass = BRAND_COLORS[d.brand] || BRAND_COLORS.HP;
+                    const deviceIcon = d.type === 'desktop' ? 'monitor' : 'laptop';
+
+                    if (state.view === 'list') {
+                        return `
+                        <article class="card-hover animate-fade-up bg-white dark:bg-slate-900 border ${isPinned ? 'border-amber-400/70 dark:border-amber-500/50' : 'border-slate-200/80 dark:border-slate-800'} rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm hover:shadow-md" style="animation-delay:${idx * 30}ms">
+                            <div class="flex items-start sm:items-center gap-3.5 min-w-0">
+                                <div class="w-11 h-11 rounded-xl ${brandBadgeClass} border flex items-center justify-center shrink-0">
+                                    <i data-lucide="${deviceIcon}" class="w-5 h-5"></i>
+                                </div>
+                                <div class="min-w-0 space-y-1">
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="px-2 py-0.5 rounded-md text-[11px] font-bold border ${brandBadgeClass}">${d.brand}</span>
+                                        <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${d.typeLabel}</span>
+                                        <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${d.badge}</span>
+                                        ${wasVisited ? '<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">تمت زيارتها</span>' : ''}
+                                    </div>
+                                    <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate" dir="ltr">${d.title}</h3>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">${d.description}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+                                <button type="button" data-action="pin" data-id="${d.id}" aria-label="تثبيت في المفضلة" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 ${isPinned ? 'bg-amber-50 text-amber-500 border-amber-300 dark:bg-amber-950/50 dark:border-amber-700' : 'text-slate-400 hover:text-amber-500 hover:bg-slate-50 dark:hover:bg-slate-800'} transition-colors">
+                                    <i data-lucide="star" class="w-4 h-4 ${isPinned ? 'fill-current' : ''}"></i>
+                                </button>
+                                <button type="button" data-action="copy" data-href="${d.href}" data-title="${d.title}" aria-label="نسخ الرابط" class="p-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+                                    <i data-lucide="link" class="w-4 h-4"></i>
+                                </button>
+                                <a href="${d.href}" data-action="visit" data-id="${d.id}" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors">
+                                    <span>فتح البوابة</span>
+                                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </div>
+                        </article>`;
+                    }
+
+                    return `
+                    <article class="card-hover animate-fade-up bg-white dark:bg-slate-900 border ${isPinned ? 'border-amber-400/70 dark:border-amber-500/50' : 'border-slate-200/80 dark:border-slate-800'} rounded-2xl p-5 flex flex-col justify-between gap-4 shadow-sm hover:shadow-md" style="animation-delay:${idx * 40}ms">
+                        <div class="space-y-3">
+                            <div class="flex items-start justify-between gap-2">
+                                <div class="w-11 h-11 rounded-xl ${brandBadgeClass} border flex items-center justify-center shrink-0">
+                                    <i data-lucide="${deviceIcon}" class="w-5 h-5"></i>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <button type="button" data-action="copy" data-href="${d.href}" data-title="${d.title}" aria-label="نسخ الرابط" class="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                                        <i data-lucide="link" class="w-4 h-4"></i>
+                                    </button>
+                                    <button type="button" data-action="pin" data-id="${d.id}" aria-label="تثبيت في المفضلة" class="p-1.5 rounded-lg ${isPinned ? 'text-amber-500 bg-amber-50 dark:bg-amber-950/50' : 'text-slate-400 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800'} transition-colors">
+                                        <i data-lucide="star" class="w-4 h-4 ${isPinned ? 'fill-current' : ''}"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-md text-[11px] font-bold border ${brandBadgeClass}">${d.brand}</span>
+                                <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${d.typeLabel}</span>
+                                <span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${d.badge}</span>
+                                ${wasVisited ? '<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">تمت زيارتها</span>' : ''}
+                            </div>
+
+                            <div>
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white leading-snug" dir="ltr">${d.title}</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">${d.description}</p>
+                            </div>
+                        </div>
+
+                        <a href="${d.href}" data-action="visit" data-id="${d.id}" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors shadow-sm shadow-blue-600/15">
+                            <span>دخول إلى صفحة الدعم</span>
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        </a>
+                    </article>`;
+                }).join('');
+            }
+
+            updateFilterButtons();
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function updateFilterButtons() {
+            document.querySelectorAll('.brand-pill').forEach(btn => {
+                const active = btn.dataset.brand === state.brand;
+                btn.className = active
+                    ? 'brand-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-blue-600 text-white'
+                    : 'brand-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700';
+            });
+
+            const pinnedBtn = document.getElementById('pinnedOnlyBtn');
+            pinnedBtn.className = state.pinnedOnly
+                ? 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-400 bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-700 transition-colors'
+                : 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors';
+
+            const gridBtn = document.getElementById('viewGridBtn');
+            const listBtn = document.getElementById('viewListBtn');
+            gridBtn.className = state.view === 'grid'
+                ? 'p-1.5 bg-blue-600 text-white transition-colors'
+                : 'p-1.5 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors';
+            listBtn.className = state.view === 'list'
+                ? 'p-1.5 bg-blue-600 text-white transition-colors'
+                : 'p-1.5 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors';
+        }
+
+        function resetAllFilters() {
+            state.search = '';
+            state.brand = 'all';
+            state.type = 'all';
+            state.pinnedOnly = false;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('typeFilter').value = 'all';
+            render();
+        }
+
+        function renderDiagnostics() {
+            const key = document.getElementById('diagSymptom').value;
+            const info = DIAGNOSTICS[key] || DIAGNOSTICS.power;
+            const box = document.getElementById('diagStepsBox');
+            box.innerHTML = `
+                <div class="font-bold text-slate-900 dark:text-white">${info.title}</div>
+                <ul class="space-y-2 text-slate-600 dark:text-slate-300">
+                    ${info.steps.map((s, i) => `
+                        <li class="flex items-start gap-2">
+                            <span class="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">${i + 1}</span>
+                            <span>${s}</span>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
+        function init() {
+            loadStorage();
+            applyTheme();
+
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', (e) => {
+                state.search = e.target.value;
+                render();
+            });
+
+            document.getElementById('clearSearchBtn').addEventListener('click', () => {
+                state.search = '';
+                searchInput.value = '';
+                searchInput.focus();
+                render();
+            });
+
+            document.querySelectorAll('.brand-pill').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    state.brand = btn.dataset.brand;
+                    render();
+                });
+            });
+
+            document.getElementById('typeFilter').addEventListener('change', (e) => {
+                state.type = e.target.value;
+                render();
+            });
+
+            document.getElementById('sortSelect').addEventListener('change', (e) => {
+                state.sort = e.target.value;
+                render();
+            });
+
+            document.getElementById('pinnedOnlyBtn').addEventListener('click', () => {
+                state.pinnedOnly = !state.pinnedOnly;
+                render();
+            });
+
+            document.getElementById('viewGridBtn').addEventListener('click', () => {
+                state.view = 'grid';
+                render();
+            });
+
+            document.getElementById('viewListBtn').addEventListener('click', () => {
+                state.view = 'list';
+                render();
+            });
+
+            document.getElementById('resetFiltersBtn').addEventListener('click', resetAllFilters);
+            document.getElementById('emptyResetBtn').addEventListener('click', resetAllFilters);
+
+            document.getElementById('themeToggleBtn').addEventListener('click', () => {
+                state.darkMode = !state.darkMode;
+                applyTheme();
+                saveStorage();
+                if (window.lucide) lucide.createIcons();
+            });
+
+            document.getElementById('portalsContainer').addEventListener('click', (e) => {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
+                const action = target.dataset.action;
+                if (action === 'pin') {
+                    togglePin(target.dataset.id);
+                } else if (action === 'copy') {
+                    copyLink(target.dataset.href, target.dataset.title);
+                } else if (action === 'visit') {
+                    recordVisit(target.dataset.id);
+                }
+            });
+
+            const modal = document.getElementById('troubleshooterModal');
+            document.getElementById('openTroubleshooterBtn').addEventListener('click', () => {
+                renderDiagnostics();
+                modal.classList.remove('hidden');
+                if (window.lucide) lucide.createIcons();
+            });
+            const closeModal = () => modal.classList.add('hidden');
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+            document.getElementById('modalDoneBtn').addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.getElementById('diagSymptom').addEventListener('change', renderDiagnostics);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === '/' && document.activeElement !== searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                } else if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+
+            render();
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
